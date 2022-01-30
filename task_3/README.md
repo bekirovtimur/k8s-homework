@@ -63,13 +63,8 @@ service/web created
 ```
 
 ```bash
-➜  task_2 git:(main) kubectl get svc
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-example-app   ClusterIP   10.108.211.241   <none>        80/TCP           12h
-kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP          12h
-minio-app     NodePort    10.104.19.20     <none>        9001:30008/TCP   37m
-minio-state   ClusterIP   None             <none>        9000/TCP         35m
-web           ClusterIP   10.102.92.171    <none>        80/TCP           8s
+➜  task_3 git:(main) ✗ kubectl get svc | grep web            
+web           ClusterIP   10.102.92.171    <none>        80/TCP           11m
 ```
 
 ```bash
