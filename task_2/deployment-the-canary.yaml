@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: app-canary
+spec:
+ replicas: 0
+ selector:
+   matchLabels:
+     id: example-app
+     type: canary
+ template:
+   metadata:
+     labels:
+       id: example-app
+       type: canary
+   spec:
+     containers:
+     - image: nginx:latest
+       name: nginx
+       ports:
+       - containerPort: 80
+       volumeMounts:
+         - name: config-nginx
+           mountPath: /etc/nginx/conf.d
+     volumes:
+       - name: config-nginx
+         configMap:
+           name: nginx-2-configmap

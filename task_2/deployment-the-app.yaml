@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: example-app
+spec:
+ replicas: 10
+ selector:
+   matchLabels:
+     id: example-app
+     type: main
+ template:
+   metadata:
+     labels:
+       id: example-app
+       type: main
+   spec:
+     containers:
+     - image: nginx:latest
+       name: nginx
+       ports:
+       - containerPort: 80
+       volumeMounts:
+         - name: config-nginx
+           mountPath: /etc/nginx/conf.d
+     volumes:
+       - name: config-nginx
+         configMap:
+           name: nginx-1-configmap
