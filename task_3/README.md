@@ -166,7 +166,7 @@ $
 $ sudo grep -r timur /var/lib/kubelet/pods
 $
 ```
-All data gone.
+All data is gone.
 
 ```bash
 __________
