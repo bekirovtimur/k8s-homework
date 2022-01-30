@@ -23,7 +23,9 @@ kubectl apply -f 1_1_CreateRoles.yaml
 kubectl apply -f 1_2_BindRoles.yaml
 ```
 ![alt tag](screenshots/task4_1_2.png)
+
 Okay, now let's check it out:
+
 ![alt tag](screenshots/task4_1_3.png)
 
 * Create namespace prod. Create users prod_admin, prod_view. Give the user prod_admin admin rights on ns prod, give the user prod_view only view rights on namespace prod.
