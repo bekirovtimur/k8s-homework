@@ -1,5 +1,6 @@
 ### Homework
 * Create users deploy_view and deploy_edit. Give the user deploy_view rights only to view deployments, pods. Give the user deploy_edit full rights to the objects deployments, pods.
+
 ```bash
 openssl genrsa -out deploy_view.key 2048
 openssl genrsa -out deploy_edit.key 2048
@@ -29,6 +30,7 @@ Okay, now let's check it out:
 ![alt tag](screenshots/task4_1_3.png)
 
 * Create namespace prod. Create users prod_admin, prod_view. Give the user prod_admin admin rights on ns prod, give the user prod_view only view rights on namespace prod.
+
 ```bash
 kubectl config use-context minikube
 
@@ -62,6 +64,37 @@ Okay, let's check the result:
 ![alt tag](screenshots/task4_2_3.png)
 
 * Create a serviceAccount sa-namespace-admin. Grant full rights to namespace default. Create context, authorize using the created sa, check accesses.
+
+
 ```bash
-¯\_(ツ)_/¯
+kubectl config use-context minikube
 ```
+
+Create a serviceAccount sa-namespace-admin
+```bash
+kubectl apply -f 3_0_CreateSA.yaml
+```
+
+Grant full rights to namespace default
+```bash
+kubectl apply -f 3_1_CreateRoles.yaml
+kubectl apply -f 3_2_BindRoles.yaml
+```
+
+Create context
+```bash
+kubectl config set-context sa-namespace-admin --cluster=minikube --user=sa-namespace-admin --namespace=default
+```
+
+Authorize using the created sa
+```bash
+export SATOKEN=$(kubectl get secrets -n default $(kubectl describe sa -n default sa-namespace-admin|grep Tokens|awk '{print $2}') -o yaml|grep -E "^[[:space:]]*token:"|awk '{print $2}'|base64 -d)
+
+kubectl config set-credentials sa-namespace-admin --token=$SATOKEN
+
+kubectl config use-context sa-namespace-admin
+```
+![alt tag](screenshots/task4_3_1.png)
+
+Check accesses
+![alt tag](screenshots/task4_3_2.png)
